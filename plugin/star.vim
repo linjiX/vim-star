@@ -10,6 +10,7 @@
 
 " configuration
 let g:star_echo_search_pattern = get(g:, 'star_echo_search_pattern', 1)
+let g:star_keep_cursor_pos = get(g:, 'star_keep_cursor_pos', 0)
 
 " functions
 function star#Vword() abort
@@ -43,21 +44,23 @@ function star#CwordForStar() abort
     endif
 endfunction
 
-function star#Search(pattern, is_forward) abort
-    let @/ = a:pattern
+function star#Search(is_visual, is_forward, is_g) abort
+    let @/ = a:is_visual ? star#VwordForStar()
+                \        : a:is_g ? star#Cword()
+                \                 : star#CwordForStar()
     call histadd('/', @/)
-    call search(@/, 'cb')
+    " call search(@/, 'cb')
     if g:star_echo_search_pattern
         echo (a:is_forward ? '/' : '?') . @/
+    endif
+    if g:star_keep_cursor_pos
+        call setpos('.', s:pos)
     endif
 endfunction
 
 function star#Command(is_visual, is_forward, is_g) abort
-    let l:pattern = a:is_visual ? "star#VwordForStar()"
-                \               : a:is_g ? "star#Cword()"
-                \                        : "star#CwordForStar()"
-
-    let l:search = ":call star#Search(". l:pattern .", ". a:is_forward .")\<CR>"
+    let s:pos = getpos('.')
+    let l:search = ":call star#Search(". a:is_visual .", ". a:is_forward .", ". a:is_g .")\<CR>"
     let l:hlsearch = ":let v:hlsearch = 1\<CR>"
     let l:searchforward = ":let v:searchforward = ". a:is_forward ."\<CR>"
 
