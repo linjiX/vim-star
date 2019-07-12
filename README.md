@@ -4,7 +4,7 @@ Improved vim star search
 ## Features
 
 - Support * search in visual mode
-- Make the cursor jump to the beginning of the current match
+- Make the cursor jump to the **current** match's beginning
 
 ## Installation
 with vim-plug
@@ -21,13 +21,13 @@ nmap <silent> g* <Plug>(star-g*)
 nmap <silent> g# <Plug>(star-g#)
 ```
 ## About cursor positon
-Vim's original behavior of * will make the cursor jump to the beginning of the **next** match.  
-This plugin will make the cursor jump to the beginning of the **current** match by default.
+Vim's original behavior of * will make the cursor jump to the **next** match's beginning.  
+This plugin will make the cursor jump to the **current** match's beginning by default.
 
 Some people prefer keeping the cursor positon unchanged when using *.  
 But in this case, I need to press 'N' twice to jump to the previous match
 (first 'N' for jumping to the current match, second for the previous match).  
-That is why I prefer making the cursor to the beginning of the current match.
+That is why I prefer making the cursor to the current match's beginning.
 
 If you still prefer keeping the cursor positon unchanged, you can
 ```vim
@@ -59,4 +59,3 @@ nmap <silent> g# <Plug>(star-g#):SearchIndex<CR>
 - [vim-asterisk](https://github.com/haya14busa/vim-asterisk)
 - [vim-visualstar](https://github.com/thinca/vim-visualstar)
 - [starsearch.vim](https://github.com/darfink/starsearch.vim/blob/master/plugin/starsearch.vim)
-
