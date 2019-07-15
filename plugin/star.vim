@@ -27,10 +27,6 @@ function star#Cword() abort
     return l:temp
 endfunction
 
-function star#VwordForGrep() abort
-    return '"'. escape(star#Vword(), '$\`"#%') .'"'
-endfunction
-
 function star#VwordForStar() abort
     return '\V'. substitute(escape(star#Vword(), '\'), '\n', '\\n', 'g')
 endfunction
@@ -58,7 +54,7 @@ function star#Search(is_visual, is_forward, is_g) abort
     endif
 endfunction
 
-function star#Command(is_visual, is_forward, is_g) abort
+function s:GetCommand(is_visual, is_forward, is_g) abort
     let s:pos = getpos('.')
     let l:search = ":call star#Search(". a:is_visual .", ". a:is_forward .", ". a:is_g .")\<CR>"
     let l:hlsearch = ":let v:hlsearch = 1\<CR>"
@@ -68,9 +64,9 @@ function star#Command(is_visual, is_forward, is_g) abort
 endfunction
 
 " mappings
-vnoremap <expr><silent> <Plug>(star-*) star#Command(1, 1, 0)
-vnoremap <expr><silent> <Plug>(star-#) star#Command(1, 0, 0)
-nnoremap <expr><silent> <Plug>(star-*) star#Command(0, 1, 0)
-nnoremap <expr><silent> <Plug>(star-#) star#Command(0, 0, 0)
-nnoremap <expr><silent> <Plug>(star-g*) star#Command(0, 1, 1)
-nnoremap <expr><silent> <Plug>(star-g#) star#Command(0, 0, 1)
+vnoremap <expr><silent> <Plug>(star-*) <SID>GetCommand(1, 1, 0)
+vnoremap <expr><silent> <Plug>(star-#) <SID>GetCommand(1, 0, 0)
+nnoremap <expr><silent> <Plug>(star-*) <SID>GetCommand(0, 1, 0)
+nnoremap <expr><silent> <Plug>(star-#) <SID>GetCommand(0, 0, 0)
+nnoremap <expr><silent> <Plug>(star-g*) <SID>GetCommand(0, 1, 1)
+nnoremap <expr><silent> <Plug>(star-g#) <SID>GetCommand(0, 0, 1)
