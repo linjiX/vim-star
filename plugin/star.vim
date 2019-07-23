@@ -27,11 +27,11 @@ function star#Cword() abort
     return l:temp
 endfunction
 
-function star#VwordForStar() abort
+function star#EscapedVword() abort
     return '\V'. substitute(escape(star#Vword(), '\'), '\n', '\\n', 'g')
 endfunction
 
-function star#CwordForStar() abort
+function star#EscapedCword() abort
     let l:cword = star#Cword()
     if match(l:cword, '\w') == -1
         return '\V'. escape(l:cword, '\')
@@ -41,9 +41,9 @@ function star#CwordForStar() abort
 endfunction
 
 function star#Search(is_visual, is_forward, is_g) abort
-    let @/ = a:is_visual ? star#VwordForStar()
+    let @/ = a:is_visual ? star#EscapedVword()
                 \        : a:is_g ? star#Cword()
-                \                 : star#CwordForStar()
+                \                 : star#EscapedCword()
     call histadd('/', @/)
     " call search(@/, 'cb')
     if g:star_echo_search_pattern
@@ -56,11 +56,18 @@ endfunction
 
 function s:GetCommand(is_visual, is_forward, is_g) abort
     let s:pos = getpos('.')
-    let l:search = ":call star#Search(". a:is_visual .", ". a:is_forward .", ". a:is_g .")\<CR>"
-    let l:hlsearch = ":let v:hlsearch = 1\<CR>"
-    let l:searchforward = ":let v:searchforward = ". a:is_forward ."\<CR>"
 
-    return l:search . l:hlsearch . l:searchforward
+    let l:search = ":\<C-u>call star#Search(".
+                \ a:is_visual .', '. a:is_forward .', '. a:is_g .")\<CR>"
+    if v:count > 0
+        let l:postcmd = v:count . (a:is_forward ? '/' : '?') . "\<CR>"
+    else
+        let l:hlsearch = ":let v:hlsearch = 1\<CR>"
+        let l:searchforward = ":let v:searchforward = ". a:is_forward ."\<CR>"
+        let l:postcmd = l:hlsearch . l:searchforward
+    endif
+
+    return l:search . l:postcmd
 endfunction
 
 " mappings

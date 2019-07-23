@@ -3,8 +3,9 @@ Improved vim star search
 
 ## Features
 
-- Support * search in visual mode
+- Support ``*`` search in visual mode
 - Make the cursor jump to the **current** match's beginning
+- Support ``[count]*`` command
 
 ## Installation
 with vim-plug
@@ -21,10 +22,10 @@ nmap <silent> g* <Plug>(star-g*)
 nmap <silent> g# <Plug>(star-g#)
 ```
 ## About cursor positon
-Vim's original behavior of * will make the cursor jump to the **next** match's beginning.  
+Vim's original behavior of ``*`` will make the cursor jump to the **next** match's beginning.  
 This plugin will make the cursor jump to the **current** match's beginning by default.
 
-Some people prefer keeping the cursor positon unchanged when using *.  
+Some people prefer keeping the cursor positon unchanged when using ``*``.  
 But in this case, I need to press 'N' twice to jump to the previous match
 (first 'N' for jumping to the current match, second for the previous match).  
 That is why I prefer making the cursor to the current match's beginning.
@@ -58,4 +59,4 @@ nmap <silent> g# <Plug>(star-g#):SearchIndex<CR>
 - [vim-visual-star-search](https://github.com/bronson/vim-visual-star-search)
 - [vim-asterisk](https://github.com/haya14busa/vim-asterisk)
 - [vim-visualstar](https://github.com/thinca/vim-visualstar)
-- [starsearch.vim](https://github.com/darfink/starsearch.vim/blob/master/plugin/starsearch.vim)
+- [starsearch.vim](https://github.com/darfink/starsearch.vim)
