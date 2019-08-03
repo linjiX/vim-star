@@ -45,7 +45,6 @@ function star#Search(is_visual, is_forward, is_g) abort
                 \        : a:is_g ? star#Cword()
                 \                 : star#EscapedCword()
     call histadd('/', @/)
-    " call search(@/, 'cb')
     if g:star_echo_search_pattern
         echo (a:is_forward ? '/' : '?') . @/
     endif
