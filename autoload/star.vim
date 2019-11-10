@@ -57,7 +57,7 @@ function star#Command(is_visual, is_forward, is_g) abort
         let l:postcmd = v:count . (a:is_forward ? '/' : '?') . "\<CR>"
     else
         let l:hlsearch = ":let v:hlsearch = 1\<CR>"
-        let l:searchforward = ":let v:searchforward = ". a:is_forward ."\<CR>"
+        let l:searchforward = ':let v:searchforward = '. a:is_forward ."\<CR>"
         let l:postcmd = l:hlsearch . l:searchforward
     endif
 
