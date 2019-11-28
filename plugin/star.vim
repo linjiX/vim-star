@@ -8,6 +8,11 @@
 "                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+if exists('g:loaded_star')
+    finish
+endif
+let g:loaded_star = 1
+
 let g:star_echo_search_pattern = get(g:, 'star_echo_search_pattern', 1)
 let g:star_keep_cursor_pos = get(g:, 'star_keep_cursor_pos', 0)
 
