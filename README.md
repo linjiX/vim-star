@@ -46,7 +46,8 @@ let g:star_keep_cursor_pos = 1
 
 ## Combine with vim-searchindex
 
-[vim-searchindex](https://github.com/google/vim-searchindex) is for display the number of search matches & index of a current match.
+[vim-searchindex](https://github.com/google/vim-searchindex)
+is for display the number of search matches & index of a current match.
 
 ```vim
 " Install vim-searchindex
