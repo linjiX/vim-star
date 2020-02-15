@@ -51,16 +51,18 @@ function star#Search(is_visual, is_forward, is_g) abort
     if g:star_echo_search_pattern
         echo (a:is_forward ? '/' : '?') . @/
     endif
-    if g:star_keep_cursor_pos
-        call setpos('.', s:pos)
-    endif
 endfunction
 
 function star#Command(is_visual, is_forward, is_g) abort
-    let s:pos = getpos('.')
+    if g:star_keep_cursor_pos
+        let l:setpos = ":call setpos('.', ". string(getcurpos()) .")\<CR>"
+    else
+        let l:setpos = ''
+    endif
 
     let l:args = join([a:is_visual, a:is_forward, a:is_g], ',')
     let l:search = ":\<C-u>call star#Search(". l:args .")\<CR>"
+
     if v:count > 0
         let l:postcmd = v:count . (a:is_forward ? '/' : '?') . "\<CR>"
     else
@@ -69,5 +71,5 @@ function star#Command(is_visual, is_forward, is_g) abort
         let l:postcmd = l:hlsearch . l:searchforward
     endif
 
-    return l:search . l:postcmd
+    return l:search . l:setpos . l:postcmd
 endfunction
