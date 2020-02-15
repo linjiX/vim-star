@@ -54,8 +54,14 @@ function star#Search(is_visual, is_forward, is_g) abort
 endfunction
 
 function star#Command(is_visual, is_forward, is_g) abort
+    if &lazyredraw == 0
+        set lazyredraw
+        let l:setlz = ":set nolazyredraw\<CR>"
+    else
+        let l:setlz = ''
+    endif
     if g:star_keep_cursor_pos
-        let l:setpos = ":call setpos('.', ". string(getcurpos()) .")\<CR>"
+        let l:setpos = ":noautocmd call setpos('.', ". string(getcurpos()) .")\<CR>"
     else
         let l:setpos = ''
     endif
@@ -71,5 +77,5 @@ function star#Command(is_visual, is_forward, is_g) abort
         let l:postcmd = l:hlsearch . l:searchforward
     endif
 
-    return l:search . l:setpos . l:postcmd
+    return l:search . l:setpos . l:postcmd . l:setlz
 endfunction
