@@ -10,14 +10,14 @@
 
 function star#Vword() abort
     let l:temp = @s
-    silent normal! gv"sy
+    noautocmd silent normal! gv"sy
     let [l:temp, @s] = [@s, l:temp]
     return l:temp
 endfunction
 
 function star#Cword() abort
     let l:temp = @s
-    silent normal! "syiw
+    noautocmd silent normal! "syiw
     let [l:temp, @s] = [@s, l:temp]
     return l:temp
 endfunction
