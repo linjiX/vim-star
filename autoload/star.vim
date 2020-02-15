@@ -28,6 +28,9 @@ endfunction
 
 function star#EscapedCword() abort
     let l:cword = star#Cword()
+    if empty(l:cword)
+        return '\V\n'
+    endif
     if match(l:cword, '\w') == -1
         return '\V'. escape(l:cword, '\')
     else
