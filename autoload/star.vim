@@ -59,8 +59,8 @@ endfunction
 function star#Command(is_visual, is_forward, is_g) abort
     let s:pos = getpos('.')
 
-    let l:search = ":\<C-u>call star#Search(".
-                \ a:is_visual .', '. a:is_forward .', '. a:is_g .")\<CR>"
+    let l:args = join([a:is_visual, a:is_forward, a:is_g], ',')
+    let l:search = ":\<C-u>call star#Search(". l:args .")\<CR>"
     if v:count > 0
         let l:postcmd = v:count . (a:is_forward ? '/' : '?') . "\<CR>"
     else
