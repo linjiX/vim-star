@@ -35,10 +35,15 @@ function star#EscapedCword() abort
     endif
 endfunction
 
+function star#GetPattern(is_visual, is_g) abort
+    return a:is_visual ? star#EscapedVword()
+                \      : a:is_g ? star#Cword()
+                \               : star#EscapedCword()
+endfunction
+
 function star#Search(is_visual, is_forward, is_g) abort
-    let @/ = a:is_visual ? star#EscapedVword()
-                \        : a:is_g ? star#Cword()
-                \                 : star#EscapedCword()
+    let l:pattern = star#GetPattern(a:is_visual, a:is_g)
+    let @/ = l:pattern
     call histadd('/', @/)
     if g:star_echo_search_pattern
         echo (a:is_forward ? '/' : '?') . @/
