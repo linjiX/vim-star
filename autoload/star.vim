@@ -60,22 +60,20 @@ function star#Command(is_visual, is_forward, is_g) abort
     else
         let l:setlz = ''
     endif
-    if g:star_keep_cursor_pos
-        let l:setpos = ":noautocmd call setpos('.', ". string(getcurpos()) .")\<CR>"
-    else
-        let l:setpos = ''
-    endif
 
     let l:args = join([a:is_visual, a:is_forward, a:is_g], ',')
     let l:search = ":\<C-u>call star#Search(". l:args .")\<CR>"
 
-    if v:count > 0
+    if v:count
         let l:postcmd = v:count . (a:is_forward ? '/' : '?') . "\<CR>"
     else
+        let l:setpos = g:star_keep_cursor_pos
+                    \ ? ":noautocmd call setpos('.', ". string(getcurpos()) .")\<CR>"
+                    \ : ''
         let l:hlsearch = ":let v:hlsearch = 1\<CR>"
         let l:searchforward = ':let v:searchforward = '. a:is_forward ."\<CR>"
-        let l:postcmd = l:hlsearch . l:searchforward
+        let l:postcmd = l:setpos . l:hlsearch . l:searchforward
     endif
 
-    return l:search . l:setpos . l:postcmd . l:setlz
+    return l:search . l:postcmd . l:setlz
 endfunction
