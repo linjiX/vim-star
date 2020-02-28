@@ -8,26 +8,24 @@
 "                                                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function star#Vword() abort
-    let l:temp = @s
-    noautocmd silent normal! gv"sy
-    let [l:temp, @s] = [@s, l:temp]
-    return l:temp
-endfunction
-
-function star#Cword() abort
-    let l:temp = @s
-    noautocmd silent normal! "syiw
-    let [l:temp, @s] = [@s, l:temp]
-    return l:temp
+function star#Word(is_visual) abort
+    let l:reg = getreg('"')
+    let l:regtype = getregtype('"')
+    try
+        let l:cmd = a:is_visual ? 'gv""y' : '""yiw'
+        execute 'noautocmd silent normal! '. l:cmd
+        return @"
+    finally
+        call setreg('"', l:reg, l:regtype)
+    endtry
 endfunction
 
 function star#EscapedVword() abort
-    return '\V'. substitute(escape(star#Vword(), '\'), '\n', '\\n', 'g')
+    return '\V'. substitute(escape(star#Word(1), '\'), '\n', '\\n', 'g')
 endfunction
 
 function star#EscapedCword() abort
-    let l:cword = star#Cword()
+    let l:cword = star#Word(0)
     if empty(l:cword)
         return '\V\n'
     endif
@@ -40,7 +38,7 @@ endfunction
 
 function star#GetPattern(is_visual, is_g) abort
     return a:is_visual ? star#EscapedVword()
-                \      : a:is_g ? star#Cword()
+                \      : a:is_g ? star#Word(0)
                 \               : star#EscapedCword()
 endfunction
 
