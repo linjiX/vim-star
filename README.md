@@ -10,10 +10,13 @@ Improved vim star search
 
 ## Installation
 
-with vim-plug
+with [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```vim
 Plug 'linjiX/vim-star'
+
+" Or you can use vim-plug's on-demand loading
+Plug 'linjiX/vim-keyword', {'on': '<Plug>(star-'}
 ```
 
 ## Usage
