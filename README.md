@@ -16,7 +16,7 @@ with [vim-plug](https://github.com/junegunn/vim-plug)
 Plug 'linjiX/vim-star'
 
 " Or you can use vim-plug's on-demand loading
-Plug 'linjiX/vim-keyword', {'on': '<Plug>(star-'}
+Plug 'linjiX/vim-star', {'on': '<Plug>(star-'}
 ```
 
 ## Usage
