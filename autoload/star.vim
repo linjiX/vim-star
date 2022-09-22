@@ -64,6 +64,8 @@ function star#Command(is_visual, is_forward, is_g) abort
 
     if v:count
         let l:postcmd = v:count . (a:is_forward ? '/' : '?') . "\<CR>"
+    elseif g:star_start_next_match
+        let l:postcmd = (a:is_forward ? '/' : '?') . "\<CR>"
     else
         let l:setpos = g:star_keep_cursor_pos
                     \ ? ":noautocmd call setpos('.', ". string(getcurpos()) .")\<CR>"
