@@ -15,6 +15,7 @@ let g:loaded_star = 1
 
 let g:star_echo_search_pattern = get(g:, 'star_echo_search_pattern', 1)
 let g:star_keep_cursor_pos = get(g:, 'star_keep_cursor_pos', 0)
+let g:star_start_next_match = get(g:, 'star_start_next_match', 0)
 
 vnoremap <expr><silent> <Plug>(star-*) star#Command(1, 1, 0)
 vnoremap <expr><silent> <Plug>(star-#) star#Command(1, 0, 0)
