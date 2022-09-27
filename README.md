@@ -32,10 +32,10 @@ nmap <silent> g# <Plug>(star-g#)
 
 ## About cursor positon
 
-Vim's original behavior of `*` will make the cursor jump to the **next**
-match's beginning.  This plugin will make the cursor jump to the **current**
-match's beginning by default.  If you prefer to keep the default behavior, 
-you can
+Vim's original behavior of `*` will make the cursor jump to the **next** match's beginning.
+This plugin will make the cursor jump to the **current** match's beginning by default.
+
+If you prefer to keep the default behavior, you can
 
 ```vim
 " Jump to the next match when use * to search
